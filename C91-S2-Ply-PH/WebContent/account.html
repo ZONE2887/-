@@ -25,6 +25,9 @@
 	
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -113,9 +116,9 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="dl">
 					<div class="heading"><h2>Login</h2></div>
-					<form name="form1" id="ff1" method="post" action="login.php">
+					<form name="form1" id="ff1" method="post">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="用户名" name="uid" id="uid" required>
 						</div>
@@ -125,27 +128,51 @@
 						<button type="submit" class="btn btn-1" name="login" id="login">Login</button>
 					</form>
 				</div>
-				<div class="col-md-6">
+				<div class="zc">
 					<div class="heading"><h2>New User ? Create An Account.</h2></div>
-					<form name="form2" id="ff2" method="post" action="register.php">
+					<form name="form2" id="ff2" method="post">
 						<div class="form-group">
-							<input type="email" class="form-control" placeholder="用户名" name="uid" id="uid" required>
+							<input v-model="uname" type="text" class="form-control" placeholder="用户名" name="uname" id="uname" required>
 						</div>
 						<div class="form-group">
-							<input type="tel" class="form-control" placeholder="电子邮件" name="email" id="email" required>
+							<input v-model="pwd" type="password" class="form-control" placeholder="密码" name="pwd" id="pwd" required>
 						</div>
 						<div class="form-group">
-							<input type="tel" class="form-control" placeholder="手机号" name="number" id="number" required>
+							<input v-model="phonenum" type="tel" class="form-control" placeholder="手机号" name="phonenum" id="phonenum" required>
 						</div>
 						<div class="form-group">
-							<input name="sex" id="sex" type="radio">男 <input name="sex" id="sex" type="radio"> 女
+							<input v-model="email" type="email" class="form-control" placeholder="电子邮件" name="email" id="email" required>
 						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="密码" name="pwd" id="pwd" required>
-						</div>
-						<button type="submit" class="btn btn-1">Create</button>
+						<button @click="regist" name="create" type="submit" class="btn btn-1" value="注册">Create</button>
 					</form>
 				</div>
+				    <script type="text/javascript">
+     var v = new Vue({
+    	 el:".zc",
+    	 data :{
+    		 uname : "",
+    		 pwd : "",
+    		 phonenum : "",
+    		 email : ""
+    	 },
+    	 methods :{
+    		 regist(){
+    			 //post请求
+    			 var url = "register.s";
+    			 var params = new URLSearchParams();
+    			 params.append("uname",this.uname);
+    			 params.append("pwd",this.pwd);
+    			 params.append("phonenum",this.phonenum);
+    			 params.append("email",this.email);
+    			 axios.post(url,params).then(res=>{
+    				 alert(res.data);
+    			 });
+    		 }
+    	 }
+     })
+    
+    </script>
+				
 			</div>
 		</div>
 	</div>
