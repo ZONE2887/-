@@ -21,16 +21,15 @@ public class UserDao {
 			  user.getPhonenum(),
 			  user.getEmail());
 	}
-	public int countByUname(String uname)throws SQLException{
+	public int countByName(String name)throws SQLException{
 		String sql = "select count(*) from ph_user where uname=?";
 		List<Integer> list = DBHelper.selectList(sql, new ResultSetMapper<Integer>() {
 			public Integer map(ResultSet rs) throws SQLException{
 				return rs.getInt(1);
 			}
-		},uname);
+		},name);
 		return list.get(0);
 	}
-	
 public Map<String,Object> login(String uname,String pwd){
 	String sql="select*from ph_user where uname=? and pwd=?";
 	DBHelper1 dbh=new DBHelper1();

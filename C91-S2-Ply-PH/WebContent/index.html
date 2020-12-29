@@ -25,6 +25,9 @@
 	
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -164,11 +167,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="a1">
 				<div class="col-lg-12">
 					<div class="heading"><h2>SPECIAL PRODUCTS</h2></div>
 					<div class="products">
-						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="phone in list">
 							<div class="product">
 								<div class="image"><a href="product.html"><img src="images/Z1.png" /></a></div>
 								<div class="buttons">
@@ -177,8 +180,8 @@
 									<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
 								</div>
 								<div class="caption">
-									<div class="name"><h3><a href="product.html">SONY</a></h3></div>
-									<div class="price">$122<span>$98</span></div>
+									<div class="name"><h3><a href="product.html">{{phone.pname}}</a></h3></div>
+									<div class="price">{{phone.price}}</div>
 									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 								</div>
 							</div>
@@ -186,6 +189,21 @@
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript">
+			  var v = new Vue({
+				  el : "#a1",
+				  data : {
+					  list : []
+				  },
+				  created(){
+					  axios.get("sy.s?op=query").then(res=>{
+						  this.list = res.data;
+					  })
+				  }
+			  })
+			
+			</script>
+			
 			<div class="row">
 				<div class="banner">
 					<div class="col-sm-6">

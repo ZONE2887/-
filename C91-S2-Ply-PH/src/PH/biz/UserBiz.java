@@ -19,7 +19,7 @@ public class UserBiz {
 		}
 		
 		try {
-			int cnt = udao.countByUname(user.getUname());
+			int cnt = udao.countByName(user.getUname());
 			if(cnt > 0) {
 				throw new BizException("该用户名已被注册");
 			}
@@ -28,5 +28,4 @@ public class UserBiz {
 			throw new BizException("系统繁忙，请稍后再试",e);
 		}
 	}
-
 }
