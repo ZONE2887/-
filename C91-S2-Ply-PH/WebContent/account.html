@@ -10,6 +10,7 @@
     <title>Mobile Shop</title>
 	
     <!-- Bootstrap Core CSS -->
+    
     <link rel="stylesheet" href="css/bootstrap.min.css"  type="text/css">
 	
 	<!-- Custom CSS -->
@@ -116,7 +117,46 @@
 				</div>
 			</div>
 			<div class="row">
+				
 				<div class="dl">
+					<div class="heading"><h2>Login</h2></div>
+					<form name="form1" id="ff1" method="post">
+						<div class="form-group">
+							<input type="text" v-model="uname" class="form-control" placeholder="用户名" name="uname" id="uname" required>
+						</div>
+						<div class="form-group">
+							<input type="password" v-model="pwd" class="form-control" placeholder="密码" name="pwd" id="pwd" required>
+						</div>
+						<button type="button" @click="login" class="btn btn-1" name="login" id="login">Login</button>
+					</form>
+				</div>
+				 <script type="text/javascript">
+     var v1 = new Vue({
+    	 el:".dl",
+    	 data :{
+    		 uname : "",
+    		 pwd : ""
+    	 },
+    	 methods :{
+    		 login(){
+    			 //post请求
+    			 var url = "login.s";
+    			 var params = new URLSearchParams();
+    			 params.append("uname",this.uname);
+    			 params.append("pwd",this.pwd);
+    			 axios.post(url,params).then(res=>{
+    				 alert(res.data);
+    				 if(res.data=='登录成功'){
+    					 location.href="index.html";
+    				 }
+    		
+    			 });
+    		 }
+    	 }
+     })
+    
+    </script>
+				
 					<div class="heading"><h2>Login</h2></div>
 					<form name="form1" id="ff1" method="post">
 						<div class="form-group">
