@@ -13,5 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="WebContent/js/jquery-3.4.1.js"/>
+	<classpathentry kind="lib" path="WebContent/js/vue.min.js"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
