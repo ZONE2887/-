@@ -3,12 +3,11 @@ package PH.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import PH.bean.User;
 import PH.util.DBHelper;
 import PH.util.DBHelper.ResultSetMapper;
-import PH.util.DBHelper1;
+
 
 
 
@@ -30,15 +29,37 @@ public class UserDao {
 		},name);
 		return list.get(0);
 	}
-public Map<String,Object> login(String uname,String pwd){
-	String sql="select*from ph_user where uname=? and pwd=?";
-	DBHelper1 dbh=new DBHelper1();
-	List<Map<String,Object>>list=dbh.query(sql, uname,pwd);
-	if(list.size()==0){
-		return null;
-	}else{
-		Map<String,Object> user=list.get(0);
-		return user;
+
+	public List<User> Login(String uname,String pwd) throws SQLException{
+		String sql="select * from ph_user where uname=? and pwd=?";
+		
+		return DBHelper.selectList(sql, new ResultSetMapper<User>() {
+			@Override
+			public User map(ResultSet rs) throws SQLException {
+				User us=new User();
+				us.setUid(rs.getInt("uid"));
+				us.setUname(rs.getString("uname"));
+				us.setPwd(rs.getString("pwd"));
+				us.setEmail(rs.getString("email"));
+				us.setPhonenum(rs.getString("phonenum"));
+				return us;
+			}
+		}, uname,pwd);
 	}
- }
+  
+  public User selectByUid(String uid) throws SQLException{
+		String sql="select * from ph_user where uid=?";
+		List<User> list;
+		list = DBHelper.selectList(sql, new ResultSetMapper<User>() {
+
+			@Override
+			public User map(ResultSet rs) throws SQLException {
+				User us = new User();
+				us.setUid(rs.getInt("uid"));
+				us.setUname(rs.getString("uname"));
+				return us;
+			}
+		}, uid);
+		return list.get(0);
+	}
 }

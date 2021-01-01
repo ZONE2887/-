@@ -127,33 +127,44 @@
 						<div class="form-group">
 							<input type="password" v-model="pwd" class="form-control" placeholder="密码" name="pwd" id="pwd" required>
 						</div>
-						<button type="button" @click="login" class="btn btn-1" name="login" id="login">Login</button>
+						<div>
+						<a href="index.html"><button type="button"  @click="login" class="btn btn-1" name="login" id="login">Login</button></a>
+						</div>
+						
+						
 					</form>
 				</div>
 				 <script type="text/javascript">
-     var v1 = new Vue({
-    	 el:".dl",
-    	 data :{
-    		 uname : "",
-    		 pwd : ""
-    	 },
-    	 methods :{
-    		 login(){
-    			 //post请求
-    			 var url = "login.s";
-    			 var params = new URLSearchParams();
-    			 params.append("uname",this.uname);
-    			 params.append("pwd",this.pwd);
-    			 axios.post(url,params).then(res=>{
-    				 alert(res.data);
-    				 if(res.data=='登录成功'){
-    					 location.href="index.html";
-    				 }
-    		
-    			 });
-    		 }
-    	 }
-     })
+				 var v=new Vue({
+						el:".dl",
+						data:{
+							uname:"",
+							pwd:"",
+						},
+						created(){
+						      var t = this;
+						      document.onkeydown = function(e){
+						        if(window.event == undefined){
+						          var key = e.keyCode;
+						        }else{
+						          var key = window.event.keyCode;
+						        }
+						      //enter的ASCII码是13
+						        if(key == 13){
+						          t.login();
+						        }
+						      }
+						    },	methods:{
+							login(){
+								var p=new URLSearchParams();
+								p.append("uname",this.uname);
+								p.append("pwd",this.pwd);
+								axios.post("login.s?op=Login",p).then(res=>{
+									alert(res.data);
+								});
+							}
+						}
+					});
     
     </script>
 				<div class="zc">

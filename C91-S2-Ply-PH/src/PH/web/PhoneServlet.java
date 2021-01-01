@@ -2,7 +2,6 @@ package PH.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,24 +14,23 @@ import com.google.gson.Gson;
 import PH.bean.Phone;
 import PH.dao.PhDao;
 
-/**
- * Servlet implementation class IndexPhServlet
- */
-@WebServlet("/sy.s")
-public class SyServlet extends HttpServlet {
+
+@WebServlet("/phone.s")
+public class PhoneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+ 
 	private PhDao pdao = new PhDao();
-	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Phone> list = null;
+		String pid = request.getParameter("pid");
+		Phone ph = null;
 		try {
-			list = pdao.selectIndex();
+			ph = pdao.selectByPid(pid);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		Gson gson = new Gson();
-		String json = gson.toJson(list);
+		String json = gson.toJson(ph);
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append(json);
 	}

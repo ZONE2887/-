@@ -7,6 +7,19 @@ public class Phone {
 	private String price;
 	private String color;
 	private String imgpath;
+	private String img;
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
+	}
 	/**
 	 * @return the pid
 	 */

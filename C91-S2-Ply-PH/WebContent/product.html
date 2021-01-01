@@ -103,26 +103,24 @@
 			</div>
 		</div>
 	</nav>
-	<!--//////////////////////////////////////////////////-->
 	<!--///////////////////Product Page///////////////////-->
 	<!--//////////////////////////////////////////////////-->
-	<div id="page-content" class="single-page">
+	<div  class="single-page">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
 						<li><a href="index.html">Home</a></li>
 						<li><a href="category.html">Category</a></li>
-						<li><a href="#">Samsung Galaxy</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="row">
 				<div id="main-content" class="main">
-					<div class="product">
+					<div class="product" id="pc">
 						<div class="col-md-6">
 							<div class="image">
-								<img src="images/galaxy-note.jpg" />
+								<img :src="phone.img"/>
 								<div class="image-more">
 									 <ul class="row">
 										 <li class="col-lg-3 col-sm-3 col-xs-4">
@@ -143,14 +141,14 @@
 						</div>
 						<div class="col-md-6">
 							<div class="caption">
-								<div class="name"><h3>Aliquam erat volutpat</h3></div>
+								<div class="name"><h3>{{phone.pname}}</h3></div>
 								<div class="info">
 									<ul>
-										<li>Brand: text</li>
-										<li>ID: 0122222</li>
+										<li>Brand:{{phone.brand}} </li>
+										<li>ID:{{phone.pid}} </li>
 									</ul>
 								</div>
-								<div class="price">$122<span>$98</span></div>
+								<div class="price">{{phone.price}}</div>
 								<div class="options">
 									AVAILABLE OPTIONS
 									<select>
@@ -160,7 +158,10 @@
 									</select>
 								</div>
 								<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-								<div class="well"><label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="#" class="btn btn-2 ">ADD</a></div>
+								<div class="well"><label>Qty: </label> 
+								<input v-model="cart.qty" class="form-inline quantity" type="text" value="1"><a @click="addCart" class="btn btn-2 ">ADD</a>
+								</div>
+
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
 									<a href="#" class="share-btn" target="_blank">
@@ -177,6 +178,37 @@
 						</div>
 						<div class="clear"></div>
 					</div>	
+					
+			<script>
+			  var v = new Vue({
+				  el : "#pc",
+				  data : {
+					  phone : {},
+					  cart : {
+						    pid : location.hash.substring(1),
+							qty : 0
+						}
+				  },
+				  created(){
+					  axios.get("phone.s?pid=" +location.hash.substring(1)).then(res=>{
+						  this.phone = res.data;
+					  })
+				  },
+				  methods : {
+						addCart(){
+							var params = new URLSearchParams();
+							params.append("pid",this.cart.Pid);
+							params.append("qty",this.cart.Qty);
+							console.info(this.cart);
+							axios.post("cart.s?op=add",params).then(res=>{
+								alert(res.data);
+							})
+						}
+					}
+				  
+			  })
+			
+			</script>
 					<div class="product-desc">
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#description">Description</a></li>
@@ -215,13 +247,15 @@
 					</div>
 				</div>
 		</div>
-	</div>	
+	</div>
+	</div>
+	
 	<footer>
 		<div class="container">
 			<div class="wrap-footer">
 				<div class="row">
 					<div class="col-md-3 col-footer footer-1">
-						<img src="images/logofooter.png" />
+						<img src="images/logofooter.png" />	
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 					</div>
 					<div class="col-md-3 col-footer footer-2">

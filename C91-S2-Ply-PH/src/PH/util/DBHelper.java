@@ -11,6 +11,8 @@ import java.util.Properties;
 
 import org.apache.catalina.tribes.util.Arrays;
 
+import PH.bean.User;
+
 public class DBHelper {
 
 	private static String driver;
@@ -174,6 +176,23 @@ public class DBHelper {
 				ps.setObject(i + 1, params[i]);
 			}
 			return ps.executeUpdate();
+		} finally {
+			conn.close();
+		}
+	}
+	
+	public static ResultSet query(String sql, Object... params) throws SQLException {
+		System.out.println("SQL：" + sql);
+		System.out.println("参数：" + Arrays.toString(params));
+		Connection conn = getConnection();
+		try {
+			// 创建语句对象
+			PreparedStatement ps = conn.prepareStatement(sql);
+			// 设置查询参数
+			for (int i = 0; i < params.length; i++) {
+				ps.setObject(i + 1, params[i]);
+			}
+			return ps.executeQuery();
 		} finally {
 			conn.close();
 		}

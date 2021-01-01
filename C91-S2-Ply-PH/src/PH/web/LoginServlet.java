@@ -1,40 +1,33 @@
 package PH.web;
 
 import java.io.IOException;
-import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import PH.dao.UserDao;
+import PH.bean.User;
+import PH.biz.BizException;
+import PH.biz.UserBiz;
 
 @WebServlet("/login.s")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-
-	private UserDao udao = new UserDao();
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private UserBiz ubiz=new UserBiz();
+	public void Login(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		String uname = request.getParameter("uname");
-		String pwd = request.getParameter("pwd");
-
-		Map<String, Object> user = udao.login(uname, pwd);
-
-		request.getSession().setAttribute("logined", user);
-		
-		response.getWriter().print("登录成功");
-
+		String uname=request.getParameter("uname");
+		String pwd=request.getParameter("pwd");
+		try {
+			User Login = ubiz.Login(uname, pwd);
+			System.out.println(Login);
+			response.getWriter().append("登录成功");
+			HttpSession session=request.getSession();
+			session.setAttribute("logined", Login);
+			System.out.println(session);
+		} catch (BizException e) {
+			response.getWriter().append("登录失败！！！ 原因:"+e.getMessage());
+		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doGet(request, response);
-	}
-
 }

@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="divRight">
 					<ul class="top-link">
-						<li><a href="account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+						<li><a href="account.html"><span class="glyphicon glyphicon-user"></span>登陆</a></li>
 						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
 					</ul>
 				</div>
@@ -52,7 +52,7 @@
 		</div>
 	</nav>
 	<!--Header-->
-	<header class="container">
+	<header class="container" id="header">
 		<div class="row">
 			<div class="col-md-4">
 				<div id="logo"><img src="images/logo.png" /></div>
@@ -62,6 +62,7 @@
 			</div>
 		</div>
 	</header>
+	
 	<!--Navigation-->
     <nav id="menu" class="navbar">
 		<div class="container">
@@ -169,18 +170,18 @@
 			</div>
 			<div class="row" id="a1">
 				<div class="col-lg-12">
-					<div class="heading"><h2>SPECIAL PRODUCTS</h2></div>
+					<div class="heading"><h2>热卖商品</h2></div>
 					<div class="products">
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="phone in list">
 							<div class="product">
-								<div class="image"><a :href="'product.html?pid=' + phone.pid"><img :src="'images/' + phone.imgpath" /></a></div>
+								<div class="image"><a :href="'product.html#' + phone.pid"><img :src="'images/' + phone.imgpath"/></a></div>
 								<div class="buttons">
 									<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 									<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
 									<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
 								</div>
 								<div class="caption">
-									<div class="name"><h3><a href="product.html">{{phone.pname}}</a></h3></div>
+									<div class="name"><h3><a :href="'product.html#' + phone.pid">{{phone.pname}}</a></h3></div>
 									<div class="price">{{phone.price}}</div>
 									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 								</div>
@@ -216,18 +217,18 @@
 			</div>
 			<div class="row" id="a2">
 				<div class="col-lg-12">
-					<div class="heading"><h2>SPECIAL PRODUCTS</h2></div>
+					<div class="heading"><h2>店长推荐</h2></div>
 					<div class="products">
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="phone in list">
 							<div class="product">
-								<div class="image"><a :href="'product.html?pid=' + phone.pid"><img :src="'images/' + phone.imgpath"/></a></div>
+								<div class="image"><a :href="'product.html#' + phone.pid"><img :src="'images/' + phone.imgpath"/></a></div>
 								<div class="buttons">
 									<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 									<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
 									<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
 								</div>
 								<div class="caption">
-									<div class="name"><h3><a href="product.html">{{phone.pname}}</a></h3></div>
+									<div class="name"><h3><a :href="'product.html#' + phone.pid">{{phone.pname}}</a></h3></div>
 									<div class="price">{{phone.price}}</div>
 									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 								</div>
