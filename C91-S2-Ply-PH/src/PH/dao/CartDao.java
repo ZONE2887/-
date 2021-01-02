@@ -2,32 +2,28 @@ package PH.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import PH.bean.Cart;
 import PH.util.DBHelper;
 
 public class CartDao {
 	
-	public void insert(Object uid, Integer pid, Integer qty) throws SQLException {
+
+	public void insert(Cart cart) throws SQLException {
 		String sql = "insert into ph_cart (uid,pid,qty) values(?,?,?)";
-		DBHelper.update(sql,uid,pid,qty);
+		DBHelper.update(sql,cart.getUid(),cart.getPid(),cart.getQty());
 	}
 	
-	public List<Map<String,Object>> selectByUid(String uid) throws SQLException{
+	
+	public List<?> selectByUid(Object uid) throws SQLException{
 		String sql="SELECT\n" +
-				"	id,\n" +
-				"	uid,\n" +
-				"	ph_phone.pid,\n" +
-				"	pname,\n" +
-				"	brand,\n" +
-				"	price,\n" +
-				"	qty\n" +
+				"	*\n" +
 				"FROM\n" +
 				"	ph_cart,\n" +
 				"	ph_phone\n" +
 				"WHERE\n" +
-				"	ph_phone.pid = ph_cart.pid and uid=9528";
+				"	uid = ?\n" +
+				"AND ph_cart.pid = ph_phone.pid";
 		return DBHelper.selectListMap(sql, uid);
 	
 	}

@@ -25,9 +25,6 @@
 	
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,6 +33,7 @@
         <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
 	<!--Top-->
 	<nav id="top">
@@ -70,7 +68,7 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="index.html">Home</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Mobiles </a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Mobiles</a>
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
@@ -102,7 +100,7 @@
 		</div>
 	</nav>
 	<!--//////////////////////////////////////////////////-->
-	<!--///////////////////Cart Page//////////////////////-->
+	<!--///////////////////Contact Page///////////////////-->
 	<!--//////////////////////////////////////////////////-->
 	<div id="page-content" class="single-page">
 		<div class="container">
@@ -110,83 +108,32 @@
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
 						<li><a href="index.html">Home</a></li>
-						<li><a href="cart.html">Cart</a></li>
+						<li><a href="contact.html">Order</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="row"  id="p">
-				<div class="product well" v-for = "t in list">
-					<div class="col-md-3">
-						<div class="image">
-							<img :src="'images/' + t.imgpath" />
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="caption">
-							<div class="name"><h3><a href="product.html">{{t.pname}}</a></h3></div>
-							<div class="info">	
-								<ul>
-									<li>Brand:{{t.brand}}</li>
-									<li>ID: {{t.pid}}</li>
-								</ul>
-							</div>
-							<div class="price">{{t.price}}</div>
-							<label>Qty: </label> <span>{{t.qty}}</span>
-							<hr>
-							<a href="#" class="btn btn-default pull-right">REMOVE</a>
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>	
-			</div>
-			<script type="text/javascript">
-			  var v = new Vue({
-				  el : "#p",
-				  data :{
-					  list : []
-				  },
-				  created(){
-					  var url = "cartt.s?uid="+location.hash.substring(1);
-					  axios.get(url).then(res=>{
-						  this.list = res.data;
-					  })
-				  }
-			  })
-				
-			</script>
 			<div class="row">
-				<div class="col-md-4 col-md-offset-8 ">
-					<center><a href="category.html" class="btn btn-1">Continue To Shopping</a></center>
+				<div class="col-lg-12">
+					<div class="heading"><h1>请填写订单</h1></div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="pricedetails">
-					<div class="col-md-4 col-md-offset-8">
-						<table>
-							<h6>Price Details</h6>
-							<tr>
-								<td>Total</td>
-								<td>350.00</td>
-							</tr>
-							<tr>
-								<td>Discount</td>
-								<td>-----</td>
-							</tr>
-							<tr>
-								<td>Delivery Charges</td>
-								<td>100.00</td>
-							</tr>
-							<tr style="border-top: 1px solid #333">
-								<td><h5>TOTAL</h5></td>
-								<td>400.00</td>
-							</tr>
-						</table>
-						<center><a href="order.html" class="btn btn-1">Checkout</a></center>
-					</div>
+				<div class="col-md-6" style="margin-bottom: 30px;">
+					<form name="form1" id="ff" method="post" action="contact.php">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Your Name *" name="name" id="name" required data-validation-required-message="Please enter your name.">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Your Addr *" name="addr" id="addr" required data-validation-required-message="Please enter your email address.">
+						</div>
+						<div class="form-group">
+							<input type="tel" class="form-control" placeholder="Your Phone *" name="phone" id="phone" required data-validation-required-message="Please enter your phone number.">
+						</div>
+						<div>需支付：213123</div>
+						<button type="submit" class="btn btn-1">提交订单</button>
+					</form>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 	<footer>
 		<div class="container">
 			<div class="wrap-footer">

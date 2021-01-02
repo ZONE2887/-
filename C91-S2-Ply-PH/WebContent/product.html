@@ -59,7 +59,22 @@
 				<div id="logo"><img src="images/logo.png" /></div>
 			</div>
 			<div>
-				<div id="cart"><a class="btn btn-1" href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span>CART</a></div>
+				<div id="cart"><a class="btn btn-1" :href="'cart.html#' + cart.uid"><span class="glyphicon glyphicon-shopping-cart"></span>CART</a></div>
+				
+			<script type="text/javascript">
+			  var v1 = new Vue({
+				  el : "#cart",
+				  data : {
+					  cartt : {}
+				  },
+				  created(){
+					  axios.get("cart.s?op=queryUid").then(res=>{
+						  this.cart = res.data;
+					  })
+				  }
+			  })
+			
+			</script>
 			</div>
 		</div>
 	</header>
@@ -161,7 +176,7 @@
 								<div class="well"><label>Qty: </label> 
 								<input v-model="cart.qty" class="form-inline quantity" type="text" value="1"><a @click="addCart" class="btn btn-2 ">ADD</a>
 								</div>
-
+								
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
 									<a href="#" class="share-btn" target="_blank">
