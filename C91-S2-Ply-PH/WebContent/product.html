@@ -65,7 +65,7 @@
 			  var v1 = new Vue({
 				  el : "#cart",
 				  data : {
-					  cartt : {}
+					  cart : {}
 				  },
 				  created(){
 					  axios.get("cart.s?op=queryUid").then(res=>{
@@ -212,8 +212,8 @@
 				  methods : {
 						addCart(){
 							var params = new URLSearchParams();
-							params.append("pid",this.cart.Pid);
-							params.append("qty",this.cart.Qty);
+							params.append("pid",this.cart.pid);
+							params.append("qty",this.cart.qty);
 							console.info(this.cart);
 							axios.post("cart.s?op=add",params).then(res=>{
 								alert(res.data);

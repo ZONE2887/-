@@ -1,8 +1,6 @@
 package PH.bean;
 
 public class User {
-	private static final long serialVersionUid = 1L;
-	
 	private Integer uid;
 	private String pwd;
 	private String uname;

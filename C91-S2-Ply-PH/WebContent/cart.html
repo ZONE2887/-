@@ -105,7 +105,7 @@
 	<!--///////////////////Cart Page//////////////////////-->
 	<!--//////////////////////////////////////////////////-->
 	<div id="page-content" class="single-page">
-		<div class="container">
+		<div class="container"  id="p">
 			<div class="row">
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
@@ -114,8 +114,8 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row"  id="p">
-				<div class="product well" v-for = "t in list">
+			<div class="row" >
+				<div class="product well" v-for = "(t,index) in list">
 					<div class="col-md-3">
 						<div class="image">
 							<img :src="'images/' + t.imgpath" />
@@ -133,27 +133,13 @@
 							<div class="price">{{t.price}}</div>
 							<label>Qty: </label> <span>{{t.qty}}</span>
 							<hr>
-							<a href="#" class="btn btn-default pull-right">REMOVE</a>
+							<a  @click="deletecart(index)" class="btn btn-default pull-right">REMOVE</a><span>{{t.id}}</span>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>	
 			</div>
-			<script type="text/javascript">
-			  var v = new Vue({
-				  el : "#p",
-				  data :{
-					  list : []
-				  },
-				  created(){
-					  var url = "cartt.s?uid="+location.hash.substring(1);
-					  axios.get(url).then(res=>{
-						  this.list = res.data;
-					  })
-				  }
-			  })
-				
-			</script>
+			
 			<div class="row">
 				<div class="col-md-4 col-md-offset-8 ">
 					<center><a href="category.html" class="btn btn-1">Continue To Shopping</a></center>
@@ -163,21 +149,21 @@
 				<div class="pricedetails">
 					<div class="col-md-4 col-md-offset-8">
 						<table>
-							<h6>Price Details</h6>
+							<h6>价格明细</h6>
 							<tr>
-								<td>Total</td>
+								<td>总计</td>
 								<td>350.00</td>
 							</tr>
 							<tr>
-								<td>Discount</td>
+								<td>折扣</td>
 								<td>-----</td>
 							</tr>
 							<tr>
-								<td>Delivery Charges</td>
-								<td>100.00</td>
+								<td>配送费</td>
+								<td>-----</td>
 							</tr>
 							<tr style="border-top: 1px solid #333">
-								<td><h5>TOTAL</h5></td>
+								<td><h5>总计</h5></td>
 								<td>400.00</td>
 							</tr>
 						</table>
@@ -186,6 +172,34 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			  var v = new Vue({
+				  el : "#p",
+				  data :{
+					  list : []
+				  },
+				  created(){
+					  var search = location.search;
+					  var items = search.split(new RegExp("="));
+					  var uid = items[1];
+					  var url = "cartt.s?op=queryByUid&uid="+uid;
+					  axios.get(url).then(res=>{
+						  this.list = res.data;
+					  })
+				  },
+				  methods:{
+			          deletecart :function(index){
+			          this.list.splice(index,1);
+			          var params = new URLSearchParams();
+			          params.append("id",this.id);
+			          axios.post("cartt.s?op=deleteById",params).then(res=>{
+			 		  alert(res.data);
+			 				});
+			            }
+			        }
+			  })
+				
+			</script>
 	</div>	
 	<footer>
 		<div class="container">

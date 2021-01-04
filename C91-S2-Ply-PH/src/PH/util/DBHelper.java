@@ -11,7 +11,6 @@ import java.util.Properties;
 
 import org.apache.catalina.tribes.util.Arrays;
 
-import PH.bean.User;
 
 public class DBHelper {
 
@@ -209,7 +208,7 @@ public class DBHelper {
 	 *	查询单行结果集（Map） 
 	 */
 	public static <T> T selectOneBean(String sql, Class<T> beanClass, Object... params) throws SQLException {
-		sql = "select * from (" + sql + ") limit 0, 1";
+		sql = "select * from (" + sql + ") a limit 0, 1";
 		List<T> ret = selectListBean(sql, beanClass, params);
 		if (ret.size() > 1) {
 			throw new SQLException("查询结果行数大于1！");
