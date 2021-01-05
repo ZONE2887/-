@@ -65,7 +65,8 @@
 			  var v1 = new Vue({
 				  el : "#cart",
 				  data : {
-					  cart : {}
+					  cart : {
+					  }
 				  },
 				  created(){
 					  axios.get("cart.s?op=queryUid").then(res=>{
@@ -164,14 +165,6 @@
 									</ul>
 								</div>
 								<div class="price">{{phone.price}}</div>
-								<div class="options">
-									AVAILABLE OPTIONS
-									<select>
-										<option value="" selected>----Please Select----</option>
-										<option value="red">RED</option>
-										<option value="black">BLACK</option>
-									</select>
-								</div>
 								<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 								<div class="well"><label>Qty: </label> 
 								<input v-model="cart.qty" class="form-inline quantity" type="text" value="1"><a @click="addCart" class="btn btn-2 ">ADD</a>
@@ -201,7 +194,7 @@
 					  phone : {},
 					  cart : {
 						    pid : location.hash.substring(1),
-							qty : 0
+							qty : 1
 						}
 				  },
 				  created(){
@@ -236,28 +229,57 @@
 								<h4>Sample Lorem Ipsum Text</h4>
 								<p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque aliquet lacus vitae pede. Nullam mollis dolor ac nisi. Phasellus sit amet urna. Praesent pellentesque sapien sed lacus. Donec lacinia odio in odio. In sit amet elit. Maecenas gravida interdum urna. Integer pretium, arcu vitae imperdiet facilisis, elit tellus tempor nisi, vel feugiat ante velit sit amet mauris. Vivamus arcu. Integer pharetra magna ac lacus. Aliquam vitae sapien in nibh vehicula auctor. Suspendisse leo mauris, pulvinar sed, tempor et, consequat ac, lacus. Proin velit. Nulla semper lobortis mauris. Duis urna erat, ornare et, imperdiet eu, suscipit sit amet, massa. Nulla nulla nisi, pellentesque at, egestas quis, fringilla eu, diam.</p>
 							</div>
+							
 							<div id="review" class="tab-pane fade">
 							  <div class="review-text">
 								<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 							  </div>
+							  
 							  <div class="review-form">
 								<h4>Write a review</h4>
 								<form name="form1" id="ff" method="post" action="review.php">
 									<label>
 									<span>Enter your name:</span>
-									<input type="text"  name="name" id="name" required>
+									<input v-model="rname" type="text"  name="rname" id="rname" required>
 									</label>
 									<label>
 									<span>Your message here:</span>
-									<textarea name="message" id="message"></textarea>
+									<textarea v-model="review" name="message" id="message"></textarea>
 									</label>
 									<div class="text-right">
-										<input class="btn btn-default" type="reset" name="reset" value="Reset">
-										<input class="btn btn-default" type="submit" name="Submit" value="Submit">
+										
+										<button @click="adv" class="btn btn-default" type="button" >Submit</button>
 									</div>
 								</form>
 							  </div>
+							   <script type="text/javascript">
+							   	var v=new Vue({
+							   		el: ".review-form",
+							   		data: {
+							   			rname: "",
+							   			review: ""
+							   		},
+							   		methods: {
+							   			adv(){
+							   			var url="review.s";	
+							   			var params = new URLSearchParams();
+							   		 	params.append("rname",this.rname);
+							   		    params.append("review",this.review);
+									 	axios.post(url,params).then(res=>{
+					    				 alert(res.data);
+							   			
+									 	});
+								
+									 },
+							   			
+							   	}
+							   	 
+							})
+							   </script>
+							  
 							</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>

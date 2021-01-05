@@ -31,4 +31,9 @@ public class CartDao {
 		String sql = "DELETE FROM ph_cart WHERE id=?";
 		DBHelper.update(sql,id);
 	}
+	
+	public void deleteByUid(Object uid) throws SQLException {
+		String sql = "DELETE FROM ph_cart WHERE uid=?";
+		DBHelper.update(sql,uid);
+	}
 }

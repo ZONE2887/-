@@ -26,6 +26,9 @@
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
 	
+	  
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -116,23 +119,52 @@
 				<div class="col-lg-12">
 					<div class="heading"><h1>CONTACT US</h1></div>
 				</div>
-				<div class="col-md-6" style="margin-bottom: 30px;">
+				
+				<div  class="col-md-6" style="margin-bottom: 30px;">
 					<form name="form1" id="ff" method="post" action="contact.php">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Your Name *" name="name" id="name" required data-validation-required-message="Please enter your name.">
+							<input v-model="uname" type="text" class="form-control" placeholder="Your Name *" name="uname" id="uname" required data-validation-required-message="Please enter your name.">
 						</div>
 						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Your Email *" name="email" id="email" required data-validation-required-message="Please enter your email address.">
+							<input v-model="email"  type="email" class="form-control" placeholder="Your Email *" name="email" id="email" required data-validation-required-message="Please enter your email address.">
 						</div>
 						<div class="form-group">
-							<input type="tel" class="form-control" placeholder="Your Phone *" name="phone" id="phone" required data-validation-required-message="Please enter your phone number.">
+							<input v-model="phonenum"  type="tel" class="form-control" placeholder="Your Phone *" name="phone" id="phone" required data-validation-required-message="Please enter your phone number.">
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" placeholder="Your Message *" name="message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+							<textarea v-model="message"  class="form-control" placeholder="Your Message *" name="message" id="message" required data-validation-required-message="Please enter a message."></textarea>
 						</div>
-						<button type="submit" class="btn btn-1">Send Message</button>
+						
+						<button @click="msg" type="button" class="btn btn-1">Send Message</button>
 					</form>
 				</div>
+				<script type="text/javascript">
+					var v=new Vue({
+						el: ".col-md-6",
+						data: {
+							uname: "",
+							email: "",
+							phonenum: "",
+							message: ""
+						},
+						methods: {
+							 msg(){
+								 //post请求
+								 var url="message.s";
+								 var params = new URLSearchParams();
+								 params.append("uname",this.uname);
+								 params.append("email",this.email);
+								 params.append("phonenum",this.phonenum);
+								 params.append("message",this.message);
+								 axios.post(url,params).then(res=>{
+				    				 alert(res.data);
+				    			 });
+							 }
+						 }
+					})
+				
+				</script>
+				
 				<div class="col-md-6">
 					<p><span class="glyphicon glyphicon-home"></span> California, United States 3000009</p>
 					<p><span class="glyphicon glyphicon-earphone"></span> +6221 888 888 90 , +6221 888 88891</p>
