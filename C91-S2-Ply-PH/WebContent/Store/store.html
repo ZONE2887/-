@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+function openTab() {
+	$('#tt').tabs('add',{
+	    title:'商品管理',
+	    content:"<iframe src='storeAdd.html' 'style:border=0px' width='100%' height='100%'></iframe>",//子框架，用于在页面中打开另一个页面
+	    closable:true
+	});
+}
+function openTab1() {
+	$('#tt').tabs('add',{
+	    title:'订单管理',
+	    content:"<iframe src='order.html' 'style:border=0px' width='100%' height='100%'></iframe>",//子框架，用于在页面中打开另一个页面
+	    closable:true
+	});
+}
+
+
+function openTab3() {
+	$('#tt').tabs('add',{
+	    title:'账户管理',
+	    content:"<iframe src='user.html' 'style:border=0px' width='100%' height='100%'></iframe>",//子框架，用于在页面中打开另一个页面
+	    closable:true
+	});
+}
+
+
+
+</script>
+</head>
+<body>
+
+<div id="cc" class="easyui-layout" data-options="fit:true">
+
+     <div data-options="region:'west',title:'导航栏',minWidth:'200px'" 
+     	class="easyui-accordion" style="width:100px;">
+     	<div title="商户管理" data-options="iconCls:'icon-save'" style="overflow:auto; padding:10px; text-align:center; line-height:40px">
+     	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',onClick:openTab">商品管理</a>
+     	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',onClick:openTab1">订单管理</a>
+     	
+     	
+	    </div>
+	    <div title="账户设置	" data-options="iconCls:'icon-save'" style="overflow:auto; padding:10px; text-align:center; line-height:40px">
+	  	 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',onClick:openTab3">账户管理</a>
+	    </div>
+	   
+     </div>
+     
+     <div data-options="region:'center'" id="tt" class="easyui-tabs" style="padding:5px;background:#eee;"></div>
+</div>
+
+
+
+</body>
+</html>

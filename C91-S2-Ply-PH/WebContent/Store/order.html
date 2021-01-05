@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+function fmtcz(value,row,index) {
+	//函数的返回值会被解析成HTML 元素
+	return"<button onclick='del("+index+")'>发货</button>";
+}
+function del(index) {
+	$.messager.confirm('确认对话框', '请确认是否要发货？', function(r){
+	    if (r){
+	        
+	    	var rows=$("#table").datagrid('getRows');
+	    	var oid=rows[index].oid;
+	    	
+	    	var url="../send.s";
+	    	var params={oid:oid};
+	    	function callback(data) {
+	    		
+	    		//刷新表格数据
+	    		$("#table").datagrid('reload');
+	    		$.messager.show({
+	    		    title:'系统提示',
+	    		    msg:data,
+	    		    timeout:5000,
+	    		    showType:'slide'
+	    		});
+	    	}
+	    	$.post(url,params,callback);
+	    	
+	    	
+	    }
+	});
+	
+
+	
+	
+}
+function edit() {
+	$("#dd").dialog('open');
+}
+
+function save() {
+	$('#ff').form('submit',{
+	    url:"../create.s",
+	    success:function(data){
+	    	//刷新表格数据
+    		$("#table").datagrid('reload');
+    		$.messager.show({
+    		    title:'系统提示',
+    		    msg:data,
+    		    timeout:5000,
+    		    showType:'slide'
+    		});
+	    }
+	});	
+}
+</script>
+</head>
+<body>
+<div id="cc" class="easyui-layout" data-options="fit:true">
+    
+       <div data-options="region:'center',title:'查询结果'" style="padding:5px;background:#eee;">
+     	 <table id="table" class="easyui-datagrid" 
+     	 data-options="fit:true,url:'../orderservlet.s',
+     	 	fitColumns:true,
+     	 	singleSelect:true,
+     	    pagination:true">
+		    <thead>
+		        <tr>
+		            <th data-options="field:'name',width:100">用户</th>
+		            <th data-options="field:'oid',width:100">单号</th>
+		            <th data-options="field:'pid',width:100">手机序号</th>
+		       		<th data-options="field:'qty',width:100">数量</th>
+		       		<th data-options="field:'phone',width:100">电话</th>
+		       		<th data-options="field:'addr',width:100">地址</th>
+		       		<th data-options="field:'state',width:100">支付状态</th>
+		            <th data-options="field:'text',width:30,formatter:fmtcz">操作</th>
+		            
+		        </tr>
+		    </thead>
+			</table>
+     </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -22,7 +22,7 @@ public class PhDao {
 	}
 	
 	public List<Phone> selectIndex() throws SQLException{
-		String sql="select * from ph_phone LIMIT 0,4 ";
+		String sql="select * from ph_phone";
 		List<Phone> list;
 		list = DBHelper.selectList(sql, new ResultSetMapper<Phone>() {
 

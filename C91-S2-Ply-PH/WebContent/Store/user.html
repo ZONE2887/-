@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+
+function addimgpatha(value,row) {
+	//函数的返回值会被解析成HTML 元素
+	return"<button onClick='addimg2("+row.pid+")'>添加2</button>";
+}
+//打开添加图片的文本框方法2
+function addimg() {
+	
+	$("#de").dialog('open');
+
+		
+}
+//打开图片提交框的按钮事件2
+function uploadImg3() {
+	
+
+	
+	$.ajax({
+		url:"/C91-S2-Ply-PH/pwd.s",
+		type:"POST",
+		
+		
+		data : $('#imgload2').serialize(),
+		//contentType:true,
+		//processData:true,
+		success:function(data){
+			//字符串转json 在转js对象
+			data= JSON.parse(data);
+			
+			alert(data.msg);
+		}
+	});
+	
+}
+
+
+
+</script>
+</head>
+<body>
+
+<div id="cc" class="easyui-layout" data-options="fit:true">
+     <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'"
+			onClick="addimg()">改密</a>
+     	 
+     	 
+     	 <table id="table" class="easyui-datagrid" data-options="
+     	 	fit:true,
+     	 	url:'../UserServlet.s',
+     	 	fitColumns:true,
+     	 	singleSelect:true,
+     	    pagination:true">
+		    <thead>
+		        <tr>
+		       		 <th data-options="field:'uid',width:15">账号</th>
+		            <th data-options="field:'uname',width:35">用户名</th>
+		            <th data-options="field:'phonenum',width:20">电话</th>
+		            <th data-options="field:'email',width:20">邮箱</th>
+		       		 <th data-options="field:'pwd',width:20">密码</th>
+		            
+		        </tr>
+		    </thead>
+			</table>
+
+</div>
+
+<!-- 改密码 -->
+<div id="de" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" 
+data-options="
+iconCls:'icon-save',
+resizable:true,
+modal:true,
+closed:true">
+		 <form id="imgload2">
+		<div style="margin-bottom:20px">
+			<input id="uid" name="uid" type="hidden">
+			<div>请输入用户账号</div>
+			<input class="easyui-textbox" name="myfile1" data-options="prompt:'Choose a file...'" style="width:100%">
+			<div>请输入密码</div>
+			<input class="easyui-textbox" name="myfile" data-options="prompt:'Choose a file...'" style="width:100%">
+		</div>
+		<div >
+			<a href="#" class="easyui-linkbutton" style="width:100%"  onclick="uploadImg3()">上传</a>
+		</div>
+		</form>
+</div>
+
+</body>
+</html>

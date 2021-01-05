@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript">
+
+function fmtcz(value,row,index) {
+	return "<button onclick='del("+index+")'>下架</button>";
+}	
+function del(index) {
+	$.messager.confirm('确认对话框', '确定要下架该商品吗？', function(r){
+	    if (r){
+	    	var rows=$("#table").datagrid('getRows');
+	    	var pid=rows[index].pid;
+	    	var url="../del.s";
+	    	var params={pid:pid};
+	    	function callback(data) {
+	    		
+	    		//刷新表格数据
+	    		$("#table").datagrid('reload');
+	    		$.messager.show({
+	    		    title:'系统提示',
+	    		    msg:data,
+	    		    timeout:5000,
+	    		    showType:'slide'
+	    		});
+	    	}
+	    	$.post(url,params,callback);
+	    	
+	    	
+	    }
+	});
+	
+
+	
+	
+}
+
+
+
+//提交图片路径
+function addimgpath(value,row) {
+	//函数的返回值会被解析成HTML 元素
+	return"<button onClick='addimg("+row.pid+")'>添加</button>";
+}
+
+//打开添加图片的文本框方法
+function addimg(pid) {
+	
+	console.info(pid);
+	$("#di").dialog('open');
+	
+	$("#pid").val(pid);
+		
+}
+
+
+
+//打开图片提交框的按钮事件
+function uploadImg() {
+	 var filedata =new FormData(imgload);
+	
+
+	$.ajax({
+		url:"/C91-S2-Ply-PH/imgpath.s",
+		type:"POST",
+		data:filedata,
+		contentType:false,
+		processData:false,
+		
+		success:function(data){
+			//字符串转json 在转js对象
+			data= JSON.parse(data);
+			
+			alert(data.msg);
+		}
+	});
+	
+}
+
+//提交图片路径2
+function addimgpatha(value,row) {
+	//函数的返回值会被解析成HTML 元素
+	return"<button onClick='addimg2("+row.pid+")'>添加2</button>";
+}
+//打开添加图片的文本框方法2
+function addimg2(pid) {
+	console.info(pid);
+	
+	$("#de").dialog('open');
+	
+	$("#pid").val(pid);
+		
+}
+//打开图片提交框的按钮事件2
+function uploadImg2() {
+	
+
+	
+	$.ajax({
+		url:"/C91-S2-Ply-PH/Img.s",
+		type:"POST",
+		
+		
+		data : $('#imgload2').serialize(),
+		//contentType:true,
+		//processData:true,
+		success:function(data){
+			//字符串转json 在转js对象
+			data= JSON.parse(data);
+			
+			alert(data.msg);
+		}
+	});
+	
+}
+
+
+
+
+
+
+//打开添加商品框的方法
+function edit() {
+	$("#dd").dialog('open');
+}
+//提交添加商品内容的方法
+function save() {
+	$('#ff').form('submit',{
+	    url:"../create.s",
+	    success:function(data){
+	    	//刷新表格数据
+    		$("#table").datagrid('reload');
+    		$.messager.show({
+    		    title:'系统提示',
+    		    msg:data,
+    		    timeout:5000,
+    		    showType:'slide'
+    		});
+	    }
+	});	
+}
+</script>
+</head>
+<body>
+
+<div id="cc" class="easyui-layout" data-options="fit:true">
+     <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'"
+			onClick="edit()">添加</a>
+     	 
+     	 
+     	 <table id="table" class="easyui-datagrid" data-options="
+     	 	fit:true,
+     	 	url:'../ssQueryPageForEasyUI.s',
+     	 	fitColumns:true,
+     	 	singleSelect:true,
+     	    pagination:true">
+		    <thead>
+		        <tr>
+		       		 <th data-options="field:'pid',width:15">编号</th>
+		            <th data-options="field:'pname',width:35">手机型号</th>
+		            <th data-options="field:'brand',width:20">品牌</th>
+		            <th data-options="field:'price',width:20">价格</th>
+		       		 <th data-options="field:'number',width:20">数量</th>
+		            <th data-options="field:'text',width:18,formatter:fmtcz">操作</th>
+		             <th data-options="field:'imgpath',width:35,formatter:addimgpath" >主页图片添加</th>
+		             
+		             <th data-options="field:'img',width:35,formatter:addimgpatha" >详情图片添加</th>
+		        </tr>
+		    </thead>
+			</table>
+
+</div>
+
+
+<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" 
+data-options="
+iconCls:'icon-save',
+resizable:true,
+modal:true,
+closed:true">
+
+ 	<form style="text-align: center;" id="ff">
+ 		<input name="pname" class="easyui-textbox" prompt="手机型号"><br>
+ 		<input name="brand" class="easyui-textbox" prompt="品牌"><br>
+ 		<input name="price" class="easyui-textbox" prompt="价格"><br>
+ 		<input name="number" class="easyui-textbox" prompt="数量"><br>
+ 		
+		<a id="btn" href="#" class="easyui-linkbutton" 
+					data-options="
+					iconCls:'icon-ok'"
+					onClick="save()">保存</a>
+ 	
+ 	</form>
+ 	
+</div>
+
+<!-- 添加1 -->
+<div id="di" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" 
+data-options="
+iconCls:'icon-save',
+resizable:true,
+modal:true,
+closed:true">
+		 <form id="imgload">
+		<div style="margin-bottom:20px">
+		
+			<input id="pid" name="pid" type="hidden">
+			
+			<div>选择图片</div>
+			
+			<input class="easyui-filebox" name="myfile" data-options="prompt:'Choose a file...'" style="width:100%">
+		</div>
+		<div >
+			<a href="#" class="easyui-linkbutton" style="width:100%"  onclick="uploadImg()">上传</a>
+		</div>
+		</form>
+</div>
+
+<!-- 添加2 -->
+<div id="de" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;" 
+data-options="
+iconCls:'icon-save',
+resizable:true,
+modal:true,
+closed:true">
+		 <form id="imgload2">
+		<div style="margin-bottom:20px">
+			<input id="pid" name="pid" type="hidden">
+			<div>输入序号</div>
+			<input class="easyui-textbox" name="myfile1" data-options="prompt:'Choose a file...'" style="width:100%">
+			<div>图片网址</div>
+			<input class="easyui-textbox" name="myfile" data-options="prompt:'Choose a file...'" style="width:100%">
+		</div>
+		<div >
+			<a href="#" class="easyui-linkbutton" style="width:100%"  onclick="uploadImg2()">上传</a>
+		</div>
+		</form>
+</div>
+
+
+</body>
+</html>
