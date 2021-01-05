@@ -62,4 +62,9 @@ public class UserDao {
 		}, uid);
 		return list.get(0);
 	}
+  
+  public void selectUname(Object uid) throws SQLException{
+	  String sql="select uname from ph_user where uid=?";
+	  DBHelper.query(sql, uid);
+  }
 }

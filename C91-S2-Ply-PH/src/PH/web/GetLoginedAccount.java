@@ -10,20 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import PH.bean.User;
+import PH.dao.UserDao;
 
 /**
  * Servlet implementation class GetLoginedAccount
  */
 @WebServlet("/gla.s")
 public class GetLoginedAccount extends BaseServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private UserDao udao = new UserDao();
        
 	  public void xianshi(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException, SQLException {
 	    	
 	    	HttpSession session=request.getSession();
 	    	User us = (User) session.getAttribute("logined");
-	    	String uname = us.getUname();
-	    	System.out.println(uname);
+	    	Integer uid = us.getUid();
+	    	udao.selectUname(uid);
 	  }
 }

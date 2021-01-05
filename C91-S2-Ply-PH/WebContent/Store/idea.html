@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+</head>
+
+<body>
+
+<div id="cc" class="easyui-layout" data-options="fit:true">	 
+     	 <table id="table" class="easyui-datagrid" data-options="
+     	 	fit:true,
+     	 	url:'../Idea.s',
+     	 	fitColumns:true,
+     	 	singleSelect:true,
+     	    pagination:true">
+		    <thead>
+		        <tr>
+		       		 <th data-options="field:'rid',width:15">序号</th>
+		            <th data-options="field:'rname',width:20">建议者</th>
+		            <th data-options="field:'review',width:30">建议内容</th>
+		        </tr>
+		    </thead>
+			</table>
+
+</div>
+
+
+</body>
+</html>

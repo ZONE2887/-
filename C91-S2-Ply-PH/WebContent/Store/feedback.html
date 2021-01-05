@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../easy/themes/icon.css">
+<script type="text/javascript" src="../easy/jquery.min.js"></script>
+<script type="text/javascript" src="../easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easy/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div id="cc" class="easyui-layout" data-options="fit:true">	 
+     	 <table id="table" class="easyui-datagrid" data-options="
+     	 	fit:true,
+     	 	url:'../Feedback.s',
+     	 	fitColumns:true,
+     	 	singleSelect:true,
+     	    pagination:true">
+		    <thead>
+		        <tr>
+		       		 <th data-options="field:'tid',width:15">提交序号</th>
+		            <th data-options="field:'uname',width:20">姓名</th>
+		            <th data-options="field:'email',width:20">邮箱</th>
+		            <th data-options="field:'phonenum',width:20">电话</th>
+		            <th data-options="field:'message',width:30">遇到的问题</th>
+		        </tr>
+		    </thead>
+			</table>
+
+</div>
+
+</body>
+</html>

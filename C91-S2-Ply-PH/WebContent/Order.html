@@ -99,7 +99,9 @@
 							</div>
 							<label>需支付: </label> <span>{{t.money}}</span>
 							<hr>
-							<span>订单状态：{{t.state}}</span>
+							<span v-if="t.state==0">订单状态：未支付</span>
+							<span v-else-if="t.state==1">订单状态：已支付</span>
+							<span v-else>订单状态：已发货</span>
 						</div>
 					</div>
 					<div class="clear"></div>
